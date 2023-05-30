@@ -7,7 +7,7 @@
       <v-btn type="submit">
         {{ mode === 'create' ? 'Create' : 'Edit' }}
       </v-btn>
-      <v-btn color="red" type="button" @click="deleteAdvertiser">
+      <v-btn v-if="mode === 'edit'" color="red" type="button" @click="deleteAdvertiser">
         Delete
       </v-btn>
     </form>

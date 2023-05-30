@@ -21,7 +21,7 @@
         </tr>
       </tbody>
     </v-table>
-    <v-btn href="/advertiser">
+    <v-btn class="create-advertiser-button" href="/advertiser">
       Create
     </v-btn>
   </v-container>
@@ -54,5 +54,15 @@ export default {
 <style lang="scss" scoped>
 .advertisers-table th,td {
     border: 1px solid;
+    padding: 5px;
+}
+
+.advertisers-table {
+  width: 100%;
+  display: block;
+}
+
+.create-advertiser-button {
+    margin-top: 30px;
 }
 </style>

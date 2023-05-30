@@ -2140,6 +2140,11 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
+"@websanova/vue-upload@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@websanova/vue-upload/-/vue-upload-2.2.0.tgz#3f1a8bbe1836ea54b4f9e2aac73ca35ce1445755"
+  integrity sha512-CONqFoI3Q4JFnEV3fMzcoChjSxTdH8P1RzI/Y1dxdGneC6lsgJXdes1Qce7ZHjX+Xqc423iTwBXRJevhh7mHsw==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
