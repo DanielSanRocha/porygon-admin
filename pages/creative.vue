@@ -2,6 +2,16 @@
   <v-container class="index-row">
     <form @submit="submit">
       <v-text-field v-model="id" label="Id" disabled />
+      <v-combobox
+        v-model="advertiser"
+        label="advertiser"
+        :items="advertisers"
+        variant="outlined"
+        item-text="name"
+        prepend-icon="mdi-domain"
+        single-line
+        return-object
+      />
       <v-text-field v-model="name" label="Name" />
       <v-textarea v-model="description" label="Description" />
       <v-file-input label="image" type="file" @change="onFileSelected" />
@@ -25,12 +35,21 @@
 export default {
   name: 'CreativePage',
   data: () => {
-    return { id: null, name: '', filename: '', description: '', width: 0, height: 0, mode: 'create', downloadLink: '' }
+    return { advertisers: [], id: null, advertiser: null, name: '', filename: '', description: '', width: 0, height: 0, mode: 'create', downloadLink: '' }
   },
   mounted: function () {
     const that = this
     const urlParams = new URLSearchParams(window.location.search)
     this.id = urlParams.get('id')
+
+    this.$axios.get('/api/advertisers?limit=10000&offset=0')
+      .then((response) => {
+        console.log(response)
+        that.advertisers = response.data.data
+      }).catch((e) => {
+        console.log(e)
+        alert(e.response.data.message)
+      })
 
     if (this.id) {
       this.mode = 'edit'
@@ -38,6 +57,14 @@ export default {
         .then((response) => {
           console.log(response)
           that.id = response.data.id
+          that.id_advertiser = response.data.id_advertiser
+          that.$axios.get(`/api/advertiser/${that.id_advertiser}`)
+            .then((response) => {
+              that.advertiser = response.data
+            }).catch((e) => {
+              console.error(e)
+              alert(e.response.data.message)
+            })
           that.name = response.data.name
           that.filename = response.data.filename
           that.downloadLink = `${response.config.baseURL}/download/${response.data.filename}`
@@ -67,8 +94,14 @@ export default {
         return
       }
 
+      if (this.advertiser === null) {
+        alert('Advertiser must be set')
+        return
+      }
+
       if (this.mode === 'create') {
-        this.$axios.post('/api/creative', { name: this.name, description: this.description, filename: this.filename, width: this.width, height: this.height })
+        this.$axios.post('/api/creative',
+          { id_advertiser: this.advertiser.id, name: this.name, description: this.description, filename: this.filename, width: this.width, height: this.height })
           .then((response) => {
             console.log(response)
             alert('created!')
@@ -80,7 +113,8 @@ export default {
             alert(e.response.data.message)
           })
       } else if (this.mode === 'edit') {
-        this.$axios.put(`/api/creative/${this.id}`, { name: this.name, description: this.description })
+        this.$axios.put(`/api/creative/${this.id}`,
+          { id_advertiser: this.advertiser.id, name: this.name, description: this.description, filename: this.filename, width: this.width, height: this.height })
           .then((response) => {
             console.log(response)
             alert('updated!')

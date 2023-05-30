@@ -4,6 +4,9 @@
       <thead>
         <tr>
           <th class="text-left">
+            ID
+          </th>
+          <th class="text-left">
             Name
           </th>
           <th class="text-left">
@@ -16,6 +19,7 @@
           v-for="advertiser in advertisers"
           :key="advertiser.id"
         >
+          <td>{{ advertiser.id }}</td>
           <td><a :href="generateLink(advertiser)">{{ advertiser.name }}</a></td>
           <td>{{ advertiser.description }}</td>
         </tr>
