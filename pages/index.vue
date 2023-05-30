@@ -6,7 +6,7 @@
         <v-card-subtitle>Healthcheck Response</v-card-subtitle>
       </v-card-item>
       <v-card-text :class="{green: isOk, red: !isOk}">
-        Status: {{ status }}
+        Status: <b>{{ status }}</b>
       </v-card-text>
     </v-card>
   </v-container>
@@ -26,8 +26,8 @@ export default {
         that.isOk = true
       }).catch((e) => {
         console.error(e)
-        that.status = e.response.data.message
         that.isOk = false
+        that.status = e.response ? e.response.data.message : 'Connection Refused'
       })
   }
 }</script>

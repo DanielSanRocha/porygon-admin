@@ -40,6 +40,7 @@ export default {
         { title: 'Home', icon: 'mdi-view-dashboard', link: '/' },
         { title: 'Advertisers', icon: 'mdi-domain', link: '/advertisers' },
         { title: 'Creatives', icon: 'mdi-creative-commons', link: '/creatives' },
+        { title: 'Slots', icon: 'mdi-rectangle', link: '/slots' },
         { title: 'Campaigns', icon: 'mdi-newspaper', link: '/campaigns' },
         { title: 'Users', icon: 'mdi-account', link: '/users' },
         { title: 'Settings', icon: 'mdi-cog', link: '/settings' },
