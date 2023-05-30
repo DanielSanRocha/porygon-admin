@@ -47,11 +47,15 @@ export default {
       ]
     }
   },
-  mounted: function () {
-    const token = localStorage.getItem('token')
+  created: function () {
+    const token = process.browser ? localStorage.getItem('token') : ''
+
     if (!token) {
       this.$router.push('/login')
     }
+    this.$axios.onRequest((config) => {
+      config.headers.common.Authorization = token
+    })
   }
 }
 </script>

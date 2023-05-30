@@ -7,7 +7,7 @@ export default {
   name: 'LogoutPage',
   mounted: function () {
     localStorage.removeItem('token')
-    this.$router.push('/')
+    this.$router.push('/login')
   }
 }</script>
 

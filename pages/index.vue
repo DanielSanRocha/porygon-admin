@@ -5,7 +5,7 @@
         <v-card-title>Server Status</v-card-title>
         <v-card-subtitle>Healthcheck Response</v-card-subtitle>
       </v-card-item>
-      <v-card-text :class="{green: isOk}">
+      <v-card-text :class="{green: isOk, red: !isOk}">
         Status: {{ status }}
       </v-card-text>
     </v-card>
@@ -16,7 +16,19 @@
 export default {
   name: 'IndexPage',
   data: () => {
-    return { status: 'Ok', isOk: true }
+    return { status: '', isOk: true }
+  },
+  mounted: function () {
+    const that = this
+    this.$axios.get('/healthcheck')
+      .then((response) => {
+        that.status = response.data.message
+        that.isOk = true
+      }).catch((e) => {
+        console.error(e)
+        that.status = e.response.data.message
+        that.isOk = false
+      })
   }
 }</script>
 
@@ -27,5 +39,9 @@ export default {
 
 .green {
   color: green;
+}
+
+.red {
+  color: red;
 }
 </style>
